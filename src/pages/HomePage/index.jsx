@@ -1,13 +1,18 @@
-import React from "react";
+import React, { useState } from "react";
+import { Button } from "react-bootstrap";
 
-import Header from "../../Header";
-import Footer from "../../Footer";
-import List from "../../List";
+import Header from "../../layouts/Header";
+import Sidebar from "../../layouts/Sidebar";
+import Footer from "../../layouts/Footer";
+import List from "./components/List";
 
-import { CustomButton, Wrapper } from "./styles";
+import * as S from "./styles";
 
 function HomePage({ name }) {
-  const productList = [
+  const [count, setCount] = useState(0);
+  const [isShowProduct, setIsShowProduct] = useState(false);
+  const [isShowSidebar, setIsShowSidebar] = useState(true);
+  const [productList, setProductList] = useState([
     {
       id: 1,
       name: "Product 1",
@@ -28,24 +33,35 @@ function HomePage({ name }) {
       name: "Product 4",
       isNew: false,
     },
-  ];
+  ]);
 
   return (
     <>
-      <Header name={name} />
-      <div className="main">
-        <div className="sidebar">
-          Sidebar
-          <CustomButton color="green">ABC</CustomButton>
-        </div>
-        <div className="content">
-          <CustomButton color="blue">ABC</CustomButton>
-          <List productList={productList} />
-          <Wrapper>
-            <h3>Ahihi</h3>
-          </Wrapper>
-        </div>
-      </div>
+      <Header
+        name={name}
+        isShowSidebar={isShowSidebar}
+        setIsShowSidebar={setIsShowSidebar}
+      />
+      <S.MainWrapper>
+        <Sidebar isShowSidebar={isShowSidebar} />
+        <S.ContentWrapper isShowSidebar={isShowSidebar}>
+          <Button
+            onClick={() => setIsShowProduct(!isShowProduct)}
+          >
+            {isShowProduct ? "Ẩn" : "Hiện"} Product
+          </Button>
+          {isShowProduct && (
+            <List
+              productList={productList}
+              setProductList={setProductList}
+            />
+          )}
+          <h3>{count}</h3>
+          <Button onClick={() => setCount(count + 1)}>
+            Tăng
+          </Button>
+        </S.ContentWrapper>
+      </S.MainWrapper>
       <Footer />
     </>
   );
