@@ -10,7 +10,12 @@ import {
   Radio,
   Space,
 } from "antd";
-import { useNavigate } from "react-router-dom";
+import {
+  useNavigate,
+  generatePath,
+} from "react-router-dom";
+
+import { ROUTES } from "../../../constants/routes";
 
 function ProductItem({
   productData,
@@ -40,9 +45,13 @@ function ProductItem({
         <Space style={{ marginTop: 16 }}>
           <Button
             ghost
-            onClick={() =>
-              navigate(`/product/${productData.id}`)
-            }
+            onClick={() => {
+              const newPath = generatePath(
+                ROUTES.ADMIN.PRODUCT_DETAIL,
+                { id: productData.id }
+              );
+              navigate(newPath);
+            }}
           >
             Detail
           </Button>

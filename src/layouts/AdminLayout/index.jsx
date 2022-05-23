@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Outlet } from "react-router-dom";
 
 import Header from "../Header";
@@ -10,6 +10,10 @@ import * as S from "./styles";
 function AdminLayout() {
   const [isShowSidebar, setIsShowSidebar] = useState(true);
   const userName = "Tuấn";
+
+  // useEffect(() => {
+  //   console.log("Mới vào Admin Layout");
+  // }, []);
 
   return (
     <>

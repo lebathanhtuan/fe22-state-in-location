@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   Button,
   Form,
@@ -14,6 +14,8 @@ import { Link, useNavigate } from "react-router-dom";
 
 import ProductItem from "./components/ProductItem";
 
+import { ROUTES } from "../../constants/routes";
+
 const initialValues = {
   productName: "",
   description: "",
@@ -27,11 +29,12 @@ const initialValues = {
 function HomePage() {
   const [productList, setProductList] = useState([]);
 
-  // v6
   const navigate = useNavigate();
-  // v5
-  // const history = useHistory();
-  // history.push()
+
+  useEffect(() => {
+    console.log("Mới vào Home Page");
+    // Gọi API để lấy dữ liệu
+  }, []);
 
   function handleCreateProduct(values) {
     const newProduct = {
@@ -77,12 +80,12 @@ function HomePage() {
   return (
     <>
       <div>
-        <a href="/products">
+        <a href={ROUTES.ADMIN.PRODUCT_LIST}>
           Đi đến danh sách sản phẩm (thẻ a)
         </a>
       </div>
       <div>
-        <Link to="/products">
+        <Link to={ROUTES.ADMIN.PRODUCT_LIST}>
           Đi đến danh sách sản phẩm (Link)
         </Link>
       </div>
@@ -90,7 +93,8 @@ function HomePage() {
         <Button
           type="primary"
           onClick={() => {
-            window.location.href = "/products";
+            window.location.href =
+              ROUTES.ADMIN.PRODUCT_LIST;
           }}
         >
           Chuyển trang bằng window.location.href
@@ -100,7 +104,7 @@ function HomePage() {
         <Button
           type="primary"
           onClick={() => {
-            navigate("/products");
+            navigate(ROUTES.ADMIN.PRODUCT_LIST);
           }}
         >
           Chuyển trang bằng navigate
