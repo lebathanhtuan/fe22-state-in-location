@@ -10,10 +10,7 @@ import {
   Radio,
   Space,
 } from "antd";
-import {
-  useNavigate,
-  generatePath,
-} from "react-router-dom";
+import { useNavigate, generatePath } from "react-router-dom";
 
 import { ROUTES } from "../../../constants/routes";
 
@@ -30,15 +27,11 @@ function ProductItem({
     return (
       <Card
         size="small"
-        title={`${productData.isNew && "[NEW]"}${
-          productData.productName
-        }`}
+        title={`${productData.isNew && "[NEW]"}${productData.productName}`}
         style={{ marginTop: 16, backgroundColor: "#ccc" }}
       >
         <div>Description: {productData.description}</div>
-        <div>
-          Price: {productData.price?.toLocaleString()} VND
-        </div>
+        <div>Price: {productData.price?.toLocaleString()} VND</div>
         <div>Brand: {productData.brand}</div>
         <div>Option: {productData.option?.join(", ")}</div>
         <div>Color: {productData.color}</div>
@@ -46,28 +39,18 @@ function ProductItem({
           <Button
             ghost
             onClick={() => {
-              const newPath = generatePath(
-                ROUTES.ADMIN.PRODUCT_DETAIL,
-                { id: productData.id }
-              );
-              navigate(newPath);
+              const newPath = generatePath(ROUTES.ADMIN.PRODUCT_DETAIL, {
+                id: productData.id,
+              });
+              navigate(newPath, { state: productData });
             }}
           >
             Detail
           </Button>
-          <Button
-            type="primary"
-            ghost
-            onClick={() => setIsUpdate(true)}
-          >
+          <Button type="primary" ghost onClick={() => setIsUpdate(true)}>
             Update
           </Button>
-          <Button
-            danger
-            onClick={() =>
-              handleDeleteProduct(productData.id)
-            }
-          >
+          <Button danger onClick={() => handleDeleteProduct(productData.id)}>
             Delete
           </Button>
         </Space>
@@ -77,9 +60,7 @@ function ProductItem({
   return (
     <Card
       size="small"
-      title={`Update ${productData.isNew && "[NEW]"}${
-        productData.productName
-      }`}
+      title={`Update ${productData.isNew && "[NEW]"}${productData.productName}`}
       style={{ marginTop: 16, backgroundColor: "#ccc" }}
     >
       <Form
@@ -110,15 +91,9 @@ function ProductItem({
         </Form.Item>
         <Form.Item label="Brand" name="brand">
           <Select>
-            <Select.Option value="apple">
-              Apple
-            </Select.Option>
-            <Select.Option value="samsung">
-              Samsung
-            </Select.Option>
-            <Select.Option value="xiaomi">
-              Xiaomi
-            </Select.Option>
+            <Select.Option value="apple">Apple</Select.Option>
+            <Select.Option value="samsung">Samsung</Select.Option>
+            <Select.Option value="xiaomi">Xiaomi</Select.Option>
           </Select>
         </Form.Item>
         <Form.Item label="Option" name="option">
@@ -148,9 +123,7 @@ function ProductItem({
           <Button type="primary" htmlType="submit">
             Save
           </Button>
-          <Button onClick={() => setIsUpdate(false)}>
-            Cancel
-          </Button>
+          <Button onClick={() => setIsUpdate(false)}>Cancel</Button>
         </Space>
       </Form>
     </Card>
